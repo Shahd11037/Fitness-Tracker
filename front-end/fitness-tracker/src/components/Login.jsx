@@ -1,6 +1,7 @@
 import { FaGoogle, FaFacebookF } from 'react-icons/fa';
 import { Formik, Form, Field, ErrorMessage } from 'formik';
 import * as Yup from 'yup';
+import { Link, useNavigate } from 'react-router-dom';
 
 const LoginSchema = Yup.object().shape({
   email: Yup.string().email('Invalid email').required('Email is required'),
@@ -8,6 +9,8 @@ const LoginSchema = Yup.object().shape({
 });
 
 export default function Login() {
+  const navigate = useNavigate();
+
   return (
     <div className="min-h-screen flex items-center justify-center bg-green-50 w-full">
       <div className="w-full max-w-md bg-white rounded-lg shadow-md p-8">
@@ -24,6 +27,7 @@ export default function Login() {
           onSubmit={(values, { setSubmitting }) => {
             // TODO: Integrate with API
             setSubmitting(false);
+            navigate('/dashboard');
           }}
         >
           {({ isSubmitting }) => (
@@ -43,7 +47,7 @@ export default function Login() {
               <div>
                 <div className="flex justify-between items-center">
                   <label htmlFor="password" className="block text-sm font-medium text-gray-700">Password</label>
-                  <a href="#" className="text-xs text-green-500 hover:underline">Forgot password?</a>
+                  <Link to="#" className="text-xs text-green-500 hover:underline">Forgot password?</Link>
                 </div>
                 <Field
                   id="password"
@@ -81,7 +85,7 @@ export default function Login() {
         </div>
         <p className="mt-6 text-center text-sm text-gray-500">
           Don't have an account?{' '}
-          <a href="/signup" className="text-green-500 hover:underline">Sign up</a>
+          <Link to="/signup" className="text-green-500 hover:underline">Sign up</Link>
         </p>
       </div>
     </div>
