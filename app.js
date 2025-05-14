@@ -29,3 +29,5 @@ app.listen(PORT, () => console.log(`Server running on port ${PORT}`));
 
 const swaggerDocs = require('./swagger');
 swaggerDocs(app);
+
+app.use(express.json());
