@@ -1,6 +1,7 @@
 import { FaGoogle, FaFacebookF } from 'react-icons/fa';
 import { Formik, Form, Field, ErrorMessage } from 'formik';
 import * as Yup from 'yup';
+import { Link, useNavigate } from 'react-router-dom';
 
 const SignupSchema = Yup.object().shape({
   fullname: Yup.string().required('Full Name is required'),
@@ -12,6 +13,8 @@ const SignupSchema = Yup.object().shape({
 });
 
 export default function Signup() {
+  const navigate = useNavigate();
+  
   return (
     <div className="min-h-screen flex items-center justify-center bg-green-50 w-full">
       <div className="w-full max-w-md bg-white rounded-lg shadow-md p-8">
@@ -28,6 +31,7 @@ export default function Signup() {
           onSubmit={(values, { setSubmitting }) => {
             // TODO: Integrate with API
             setSubmitting(false);
+            navigate('/dashboard');
           }}
         >
           {({ isSubmitting }) => (
@@ -105,7 +109,7 @@ export default function Signup() {
         </div>
         <p className="mt-6 text-center text-sm text-gray-500">
           Already have an account?{' '}
-          <a href="/login" className="text-green-500 hover:underline">Sign in</a>
+          <Link to="/login" className="text-green-500 hover:underline">Sign in</Link>
         </p>
       </div>
     </div>
