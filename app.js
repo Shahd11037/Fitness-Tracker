@@ -1,6 +1,7 @@
 const express = require('express');
 const cors = require('cors');
 const connectDB = require('./config/db');
+const workoutRoutes = require('./routes/workoutRoutes')
 
 const app = express();
 
@@ -24,10 +25,13 @@ app.use((err, req, res, next) => {
     });
 });
 
+// Base route
+app.get('/', (req, res) => {
+  res.send('Fitness Tracker Home');
+});
+
 const PORT = process.env.PORT || 5000;
 app.listen(PORT, () => console.log(`Server running on port ${PORT}`));
 
 const swaggerDocs = require('./swagger');
 swaggerDocs(app);
-
-app.use(express.json());
