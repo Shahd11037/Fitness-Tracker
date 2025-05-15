@@ -11,11 +11,11 @@ app.use(express.json());
 // Database
 connectDB();
 
-// Routes
+// Routes  
 app.use('/api/users', require('./routes/userRoutes'));
 app.use('/api/workouts', require('./routes/workoutRoutes'));
 
-// Error Handling (Add this last!)
+// Error Handling 
 app.use((err, req, res, next) => {
     console.error(err.stack);
     res.status(500).json({ 
