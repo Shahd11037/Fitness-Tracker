@@ -4,11 +4,29 @@
     "cors": "^2.8.5",
     "dotenv": "^16.5.0",
     "express": "^5.1.0",
-    "mongoose": "^8.14.1",
+    "mongoose": "^8.14.3",
     "swagger-jsdoc": "^6.2.8",
     "swagger-ui-express": "^5.0.1"
   },
   "devDependencies": {
     "nodemon": "^3.1.10"
-  }
+  },
+  "name": "fitness-tracker",
+  "version": "1.0.0",
+  "main": "app.js",
+  "scripts": {
+    "start": "nodemon app.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Shahd11037/Fitness-Tracker.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Shahd11037/Fitness-Tracker/issues"
+  },
+  "homepage": "https://github.com/Shahd11037/Fitness-Tracker#readme",
+  "description": ""
 }

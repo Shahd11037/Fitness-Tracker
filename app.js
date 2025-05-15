@@ -1,6 +1,7 @@
 const express = require('express');
 const cors = require('cors');
 const connectDB = require('./config/db');
+const workoutRoutes = require('./routes/workoutRoutes')
 
 const app = express();
 
@@ -22,6 +23,11 @@ app.use((err, req, res, next) => {
       error: 'Internal Server Error',
       message: err.message 
     });
+});
+
+// Base route
+app.get('/', (req, res) => {
+  res.send('Fitness Tracker Home');
 });
 
 const PORT = process.env.PORT || 5000;
