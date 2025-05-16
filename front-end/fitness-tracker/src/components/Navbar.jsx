@@ -30,16 +30,6 @@ export default function Navbar({ toggleSidebar }) {
             className="search-input"
           />
         </div>
-        
-        <button className="p-2 rounded-full hover:bg-gray-100 dark:hover:bg-gray-700 relative">
-          <FaBell className="text-gray-500 dark:text-gray-400" />
-          <span className="absolute top-0 right-0 h-2 w-2 rounded-full bg-red-500"></span>
-        </button>
-        
-        <div className="user-profile">
-          <span>JD</span>
-        </div>
-        
         <ThemeToggle />
       </div>
     </nav>

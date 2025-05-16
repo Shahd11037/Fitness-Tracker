@@ -20,33 +20,7 @@ export default function Sidebar() {
           <span>Dashboard</span>
         </NavLink>
         
-        <NavLink to="/workouts" className={({ isActive }) => 
-          `sidebar-nav-item ${isActive ? 'active' : ''}`
-        }>
-          <FaDumbbell className="sidebar-icon" />
-          <span>Workouts</span>
-        </NavLink>
-        
-        <NavLink to="/nutrition" className={({ isActive }) => 
-          `sidebar-nav-item ${isActive ? 'active' : ''}`
-        }>
-          <FaAppleAlt className="sidebar-icon" />
-          <span>Nutrition</span>
-        </NavLink>
-        
-        <NavLink to="/schedule" className={({ isActive }) => 
-          `sidebar-nav-item ${isActive ? 'active' : ''}`
-        }>
-          <FaCalendarAlt className="sidebar-icon" />
-          <span>Schedule</span>
-        </NavLink>
-        
-        <NavLink to="/settings" className={({ isActive }) => 
-          `sidebar-nav-item ${isActive ? 'active' : ''}`
-        }>
-          <FaCog className="sidebar-icon" />
-          <span>Settings</span>
-        </NavLink>
+       
       </nav>
     </aside>
   );

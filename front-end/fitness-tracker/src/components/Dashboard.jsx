@@ -97,7 +97,7 @@ export default function Dashboard() {
         <div className="chart-container mt-6">
           <div className="chart-header">
             <h3 className="chart-title">Recent Activities</h3>
-            <button className="btn btn-secondary text-sm py-1 px-3">View All</button>
+           
           </div>
           
           <div className="mt-4 space-y-3">
