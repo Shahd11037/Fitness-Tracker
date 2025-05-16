@@ -1,93 +1,131 @@
-import { FaGoogle, FaFacebookF } from 'react-icons/fa';
+import React, { useState } from 'react';
+import { Link, useNavigate } from 'react-router-dom';
+import { FaGoogle, FaFacebookF, FaRegEnvelope, FaLock, FaStar } from 'react-icons/fa';
 import { Formik, Form, Field, ErrorMessage } from 'formik';
 import * as Yup from 'yup';
-import { Link, useNavigate } from 'react-router-dom';
 
 const LoginSchema = Yup.object().shape({
-  email: Yup.string().email('Invalid email').required('Email is required'),
+  email: Yup.string().email('Invalid email address').required('Email is required'),
   password: Yup.string().min(6, 'Password must be at least 6 characters').required('Password is required'),
 });
 
 export default function Login() {
   const navigate = useNavigate();
+  const [isSubmitting, setIsSubmitting] = useState(false);
+  
+  const handleSubmit = async (values) => {
+    setIsSubmitting(true);
+    
+    // Simulate API call
+    await new Promise(resolve => setTimeout(resolve, 1000));
+    
+    // TODO: Implement actual authentication logic
+    
+    setIsSubmitting(false);
+    navigate('/dashboard');
+  };
 
   return (
-    <div className="min-h-screen flex items-center justify-center bg-green-50 w-full">
-      <div className="w-full max-w-md bg-white rounded-lg shadow-md p-8">
-        <div className="flex flex-col items-center mb-6">
-          <svg width="48" height="48" viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg">
-            <path d="M24 6L28.24 14.48L37.52 15.64L30.76 22.16L32.48 31.36L24 27.12L15.52 31.36L17.24 22.16L10.48 15.64L19.76 14.48L24 6Z" fill="#22C55E"/>
-          </svg>
-          <h2 className="mt-4 text-2xl font-bold text-gray-900">Welcome back</h2>
-          <p className="text-gray-500 text-center mt-1">Enter your credentials to access your account</p>
+    <div className="min-h-screen flex items-center justify-center bg-gray-50 dark:bg-gray-900 p-4">
+      <div className="form-container fade-in">
+        <div className="form-heading">
+          <div className="mx-auto w-12 h-12 flex items-center justify-center bg-primary-light dark:bg-green-900 rounded-full">
+            <FaStar className="text-2xl text-primary" />
+          </div>
+          <h2 className="form-title">Welcome back</h2>
+          <p className="form-subtitle">Enter your credentials to access your account</p>
         </div>
+        
         <Formik
           initialValues={{ email: '', password: '' }}
           validationSchema={LoginSchema}
-          onSubmit={(values, { setSubmitting }) => {
-            // TODO: Integrate with API
-            setSubmitting(false);
-            navigate('/dashboard');
-          }}
+          onSubmit={handleSubmit}
         >
-          {({ isSubmitting }) => (
+          {({ isSubmitting: formikSubmitting }) => (
             <Form className="space-y-4">
-              <div>
-                <label htmlFor="email" className="block text-sm font-medium text-gray-700">Email</label>
-                <Field
-                  id="email"
-                  name="email"
-                  type="email"
-                  autoComplete="email"
-                  className="mt-1 w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-green-200"
-                  placeholder="name@example.com"
-                />
-                <ErrorMessage name="email" component="div" className="text-red-500 text-xs mt-1" />
-              </div>
-              <div>
-                <div className="flex justify-between items-center">
-                  <label htmlFor="password" className="block text-sm font-medium text-gray-700">Password</label>
-                  <Link to="#" className="text-xs text-green-500 hover:underline">Forgot password?</Link>
+              <div className="form-group">
+                <label htmlFor="email" className="form-label">Email</label>
+                <div className="relative">
+                  <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
+                    <FaRegEnvelope className="text-gray-400" />
+                  </div>
+                  <Field
+                    id="email"
+                    name="email"
+                    type="email"
+                    autoComplete="email"
+                    className="form-input pl-10"
+                    placeholder="name@example.com"
+                  />
                 </div>
-                <Field
-                  id="password"
-                  name="password"
-                  type="password"
-                  autoComplete="current-password"
-                  className="mt-1 w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-green-200"
-                />
-                <ErrorMessage name="password" component="div" className="text-red-500 text-xs mt-1" />
+                <ErrorMessage name="email" component="div" className="form-error" />
               </div>
+              
+              <div className="form-group">
+                <div className="flex justify-between items-center">
+                  <label htmlFor="password" className="form-label">Password</label>
+                  <Link to="#" className="text-xs text-primary hover:underline font-medium">
+                    Forgot password?
+                  </Link>
+                </div>
+                <div className="relative">
+                  <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
+                    <FaLock className="text-gray-400" />
+                  </div>
+                  <Field
+                    id="password"
+                    name="password"
+                    type="password"
+                    autoComplete="current-password"
+                    className="form-input pl-10"
+                  />
+                </div>
+                <ErrorMessage name="password" component="div" className="form-error" />
+              </div>
+              
               <button
                 type="submit"
-                className="w-full py-2 px-4 bg-green-500 text-white font-semibold rounded-md hover:bg-green-600 transition-colors"
-                disabled={isSubmitting}
+                className="btn btn-primary btn-full"
+                disabled={isSubmitting || formikSubmitting}
               >
-                {isSubmitting ? 'Signing in...' : 'Sign in'}
+                {isSubmitting || formikSubmitting ? (
+                  <span className="flex items-center justify-center">
+                    <svg className="animate-spin -ml-1 mr-2 h-4 w-4 text-white" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+                      <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4"></circle>
+                      <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
+                    </svg>
+                    Signing in...
+                  </span>
+                ) : 'Sign in'}
               </button>
             </Form>
           )}
         </Formik>
-        <div className="flex items-center my-6">
-          <div className="flex-grow h-px bg-gray-200" />
-          <span className="mx-2 text-xs text-gray-400 font-medium">OR CONTINUE WITH</span>
-          <div className="flex-grow h-px bg-gray-200" />
+        
+        <div className="divider">
+          <div className="divider-line"></div>
+          <span className="divider-text">OR CONTINUE WITH</span>
+          <div className="divider-line"></div>
         </div>
+        
         <div className="flex gap-4">
-          <button className="flex items-center justify-center gap-2 w-1/2 py-2 border border-gray-300 rounded-md hover:bg-gray-50 transition-colors">
-            <FaGoogle className="text-lg" />
-            Google
+          <button className="btn btn-secondary btn-with-icon btn-full">
+            <FaGoogle className="text-gray-700 dark:text-gray-200" />
+            <span>Google</span>
           </button>
-          <button className="flex items-center justify-center gap-2 w-1/2 py-2 border border-gray-300 rounded-md hover:bg-gray-50 transition-colors">
-            <FaFacebookF className="text-lg text-blue-600" />
-            Facebook
+          <button className="btn btn-secondary btn-with-icon btn-full">
+            <FaFacebookF className="text-blue-600" />
+            <span>Facebook</span>
           </button>
         </div>
-        <p className="mt-6 text-center text-sm text-gray-500">
+        
+        <p className="mt-6 text-center text-sm text-gray-500 dark:text-gray-400">
           Don't have an account?{' '}
-          <Link to="/signup" className="text-green-500 hover:underline">Sign up</Link>
+          <Link to="/signup" className="text-primary hover:underline font-medium">
+            Sign up
+          </Link>
         </p>
       </div>
     </div>
   );
-} 
+}
