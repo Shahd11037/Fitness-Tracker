@@ -1,0 +1,307 @@
+/* src/pages/WorkoutDetails.css */
+
+/* Navbar
+.navbar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background-color: #111;
+  color: #fff;
+  padding: 1rem 2rem;
+}
+
+.navbar-left a {
+  color: #ccc;
+  text-decoration: none;
+  margin-right: 1.5rem;
+  font-weight: 500;
+}
+
+.navbar-left a.active,
+.navbar-left a:hover {
+  color: white;
+  border-bottom: 2px solid white;
+  padding-bottom: 4px;
+}
+
+.navbar-right h1 {
+  font-size: 1.5rem;
+  font-weight: 700;
+  position: relative;
+}
+
+.dot {
+  color: #00b894;
+} */
+
+/* src/pages/WorkoutDetails.css */
+
+/* Base styles */
+.min-h-screen {
+  min-height: 90vh;
+}
+
+.bg-black {
+  background-color: #ffffff;
+}
+
+.text-white {
+  color: #fff;
+}
+
+.font-sans {
+  font-family: sans-serif;
+}
+
+
+/* Main content styles, right page */
+.workout-container {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1rem;
+  padding: 1.5rem;
+}
+
+@media (max-width: 768px) {
+  .workout-container {
+    grid-template-columns: 1fr;
+  }
+}
+
+/* Image section styles */
+.image-section {
+  
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.workout-image {
+  position: absolute;
+  top: 4.4rem;
+  left: 0rem;
+  width: 600px;
+  height: 720px;
+  object-fit: cover;
+  /* border-radius: 0.5rem; */
+  /* box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); */
+}
+
+/* Workout info section styles */
+.workout-info {
+  position: absolute;
+  background-color: transparent;
+  color: #000;
+  border-radius: 1rem;
+  padding: 1.5rem;
+  position: relative;
+
+  /* background-color: transparent;
+  border: none;
+  padding: 0;
+  margin: 0;
+  padding: 0rem;
+  border: none;
+  height: 0;  */
+}
+
+.favorite-icon {
+  position: absolute;
+  top: 2.5rem;
+  right: 1rem;
+  color: #059669;
+}
+
+.workout-title {
+  position: absolute;
+  top: -1rem;
+  right: 7rem;
+  font-size: 3rem;
+  font-weight: 700;
+  margin-bottom: -0.5rem;
+  white-space: nowrap;
+  /* overflow: hidden;
+  text-overflow: ellipsis; */
+  max-width: 100%;
+}
+
+.workout-subtitle {
+  position: absolute;
+  top: 3rem;
+  right: 23rem;
+  font-size: 1.65rem;
+  font-weight: 400;
+  margin-bottom: 1rem;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  max-width: 100%;
+}
+
+.workout-meta {
+  position: absolute;
+  top: 9rem;
+  right: 23rem;
+  display: flex;
+  gap: 1rem;
+  font-size: 0.875rem;
+  color: #374151;
+  margin-bottom: 1rem;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  max-width: 100%;
+}
+
+.duration {
+
+  font-size: 1.25rem;
+  font-weight: 700;
+  padding-left: 1.2rem;
+  color: #000;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  max-width: 100%;
+}
+
+.duration2 {
+  font-size: 1.25rem;
+  font-weight: 400;
+  padding-left: 1rem;
+}
+
+.difficulty {
+  font-size: 1.25rem;
+  font-weight: 400;
+  border-left: 1px solid #e5e7eb;
+  padding-left: 1rem;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  max-width: 100%;
+}
+
+.workout-description {
+  position: absolute;
+  top: 15rem;
+  left: -3.5rem;
+  font-size: 1.25rem;
+  font-weight: 400;
+  color: #000000;
+  margin-bottom: 1rem;
+  line-height: 1.5;
+  /* white-space: nowrap; */
+  /* overflow: hidden; */
+  /* text-overflow: ellipsis; */
+  max-width: 100%;
+}
+
+.calories {
+  position: absolute;
+  top: 21rem;
+  right: 29.5rem;
+  font-weight: 500;
+  font-size: 1.1rem;
+  margin-bottom: 1rem;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  max-width: 100%;
+}
+
+.calories span {
+  font-weight: 700;
+  color: #000;
+}
+
+
+.start2-button {
+  position: absolute;
+  top: 37.4rem;
+  left: -6.3rem;
+  width: 49.2rem;
+  height: 6rem;
+  background-color: #000 !important;
+  color: #fff !important;
+  font-weight: 600;
+  font-size: 1.4rem;
+  border: none !important;
+  outline: none !important;
+  cursor: default !important;
+  transform: none !important;
+  transition: none !important;
+  box-shadow: none !important;
+  border-radius: 0rem;
+
+  
+}
+
+/* Completely disable all hover states */
+.start2-button:hover,
+.start2-button:focus,
+.start2-button:active {
+  background-color: #000 !important;
+  color: #fff !important;
+  transform: none !important;
+  width: 49.2rem !important;
+  box-shadow: none !important;
+}
+
+
+/* Right-side Workout Details Panel */
+
+.timeline-card {
+  position: absolute;
+  top: 23rem;
+  left: -4rem;
+  width: 45rem;
+  height: 13rem;
+  background-color: white;
+  border-radius: 1rem;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  padding: 1rem;
+}
+
+.timeline-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding-bottom: 0.5rem;
+  border-bottom: 1px solid #e5e7eb; /* Tailwind's gray-200 */
+}
+
+.timeline {
+  max-height: 100px;
+
+  overflow-y: auto;
+  padding-right: 0.5rem;
+  margin-top: 1rem;
+}
+
+.timeline-item {
+  display: flex;
+  align-items: flex-start;
+  gap: 0.75rem;
+  margin-bottom: 0.75rem;
+}
+
+.timeline-dot {
+  width: 12px;
+  height: 12px;
+  background-color: #00b894; /* Tailwind's blue-500 */
+  border-radius: 50%;
+  margin-top: 4px;
+}
+
+.timeline-title {
+  font-weight: 500;
+}
+
+.timeline-duration {
+  font-size: 0.875rem;
+  color: #6b7280; /* Tailwind's gray-500 */
+}
+
+
+
