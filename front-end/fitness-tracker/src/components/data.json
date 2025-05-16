@@ -1,0 +1,37 @@
+[
+  {
+    "id": 1,
+    "image": "pilates.png",
+    "title": "STRENGTH & LENGTH",
+    "description": "TONE, SCULPT, SWEAT, REPEAT",
+    "details": "29 min · Beginner · Ashley Lee",
+    "link": "/workoutDetails",
+    "category": "cardio"
+  },
+  {
+    "id": 2,
+    "image": "pilates.png",
+    "title": "HIIT BURN",
+    "description": "EXPLOSIVE FAT BURN",
+    "details": "20 min · Intermediate · Jordan Smith",
+    "link": "/workoutDetails",
+    "category": "yoga"
+  },
+  {
+  "id": "123",
+  "title": "Strength & Length",
+  "subtitle": "Full Body Sculpt",
+  "duration": 29,
+  "difficulty": "Beginner",
+  "coach": "Ashley Lee",
+  "description": "Your description here.",
+  "calories": 282,
+  "image": "/pilates.png",
+  "timeline": [
+    { "title": "Warm Up", "duration": "5 min" },
+    { "title": "Main Workout", "duration": "20 min" },
+    { "title": "Cool Down", "duration": "4 min" }
+  ]
+}
+
+]
