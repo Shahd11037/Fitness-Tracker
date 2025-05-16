@@ -1,4 +1,4 @@
-const express = require('express');
+/*const express = require('express');
 const cors = require('cors');
 const connectDB = require('./config/db');
 const workoutRoutes = require('./routes/workoutRoutes')
@@ -14,7 +14,7 @@ connectDB();
 
 // Routes  
 app.use('/api/users', require('./routes/userRoutes'));
-app.use('/api/workouts', require('./routes/workoutRoutes'));
+app.use('/api/workouts', workoutRoutes);
 
 // Error Handling 
 app.use((err, req, res, next) => {
@@ -30,8 +30,10 @@ app.get('/', (req, res) => {
   res.send('Fitness Tracker Home');
 });
 
-const PORT = process.env.PORT || 5000;
-app.listen(PORT, () => console.log(`Server running on port ${PORT}`));
+app.use((err, req, res, next) => {
+  console.error(err.stack);
+  res.status(500).json({ error: 'Internal Server Error' });
+});
 
 const swaggerDocs = require('./swagger');
-swaggerDocs(app);
+swaggerDocs(app); */

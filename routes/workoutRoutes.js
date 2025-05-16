@@ -1,7 +1,7 @@
 const express = require('express');
 const router = express.Router();
 const workoutController = require('../controllers/workoutController');
-const auth = require('../middleware/auth');
+const auth = require('../middleware/authMiddleware');
 
 // Apply auth middleware to all workout routes to ensure users are logged in
 router.use(auth);

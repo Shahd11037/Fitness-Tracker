@@ -1,4 +1,5 @@
 const Workout = require('../models/workoutModel');
+const User = require('../models/userModel');
 
 // Get all workouts for the current user
 exports.getAllWorkouts = async (req, res) => {
