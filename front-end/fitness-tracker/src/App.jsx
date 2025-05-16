@@ -34,11 +34,11 @@ function App() {
     <Router>
       <div className="App">
         <Routes>
-          <Route path="/" element={<Navigate to="/login" />} />
+          <Route path="/" element={<Navigate to="/home" />} />
+          <Route path="/home" element={<Home />} />
           <Route path="/login" element={<Login />} />
           <Route path="/signup" element={<Signup />} />
           <Route path="/dashboard" element={<Dashboard darkMode={isDarkMode} toggleDarkMode={toggleDarkMode} />} />
-          <Route path="/home" element={<Home />} />
         </Routes>
       </div>
     </Router>

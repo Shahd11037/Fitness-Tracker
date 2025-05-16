@@ -1,3 +1,4 @@
+/* eslint-disable no-undef */
 import React, { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { FaGoogle, FaFacebookF, FaRegEnvelope, FaLock, FaStar } from 'react-icons/fa';
@@ -12,17 +13,47 @@ const LoginSchema = Yup.object().shape({
 export default function Login() {
   const navigate = useNavigate();
   const [isSubmitting, setIsSubmitting] = useState(false);
-  
+  const [_error, setError] = useState('');
+
   const handleSubmit = async (values) => {
+    console.log('Submitting:', values); // Debug 1
     setIsSubmitting(true);
-    
+    setError('');
+    try {
+      console.log('Calling API...'); // Debug 2
+      // Call your backend API
+      const response = await fetch("http://localhost:5000/api/auth/login", {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        credentials: 'include',
+        body: JSON.stringify(values),
+      });
+      console.log('Response status:', response.status); // Debug 3
+      const data = await response.json();
+      console.log('Response data:', data); // Debug 4
+
+      if (!response.ok) {
+        throw new Error(data.message || 'Login failed');
+      }
+
+      // Save token to localStorage
+      localStorage.setItem('token', data.token);
+      console.log('Login successful, navigating...'); // Debug 5
+
+      navigate('/dashboard');
+    } catch (err) {
+      console.error('Login error:', err); // Debug 6
+      setError(err.message);
+    } finally {
+      console.log('Final cleanup'); // Debug 7
+      setIsSubmitting(false);
+      
+    }
     // Simulate API call
-    await new Promise(resolve => setTimeout(resolve, 1000));
+
+    //await new Promise(resolve => setTimeout(resolve, 1000));
     
-    // TODO: Implement actual authentication logic
     
-    setIsSubmitting(false);
-    navigate('/dashboard');
   };
 
   return (
@@ -36,6 +67,7 @@ export default function Login() {
           <p className="form-subtitle">Enter your credentials to access your account</p>
         </div>
         
+
         <Formik
           initialValues={{ email: '', password: '' }}
           validationSchema={LoginSchema}
@@ -109,5 +141,7 @@ export default function Login() {
         </p>
       </div>
     </div>
+    
   );
+  
 }

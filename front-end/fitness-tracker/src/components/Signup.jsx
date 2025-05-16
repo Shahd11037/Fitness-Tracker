@@ -1,3 +1,4 @@
+/* eslint-disable no-undef */
 import React, { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { FaGoogle, FaFacebookF, FaRegEnvelope, FaLock, FaUser, FaStar } from 'react-icons/fa';
@@ -16,18 +17,38 @@ const SignupSchema = Yup.object().shape({
 export default function Signup() {
   const navigate = useNavigate();
   const [isSubmitting, setIsSubmitting] = useState(false);
+  const [_error, setError]= useState('');
   
   const handleSubmit = async (values) => {
-    setIsSubmitting(true);
-    
-    // Simulate API call
-    await new Promise(resolve => setTimeout(resolve, 1000));
-    
-    // TODO: Implement actual signup logic
-    
-    setIsSubmitting(false);
-    navigate('/dashboard');
-  };
+  setIsSubmitting(true);
+  try {
+    const response = await fetch("http://localhost:5000/api/auth/signup", {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      credentials: 'include',
+      body: JSON.stringify({
+          username: values.fullname, // Match backend expectation
+          email: values.email,
+          password: values.password
+        }),
+    });
+
+    const data = await response.json();
+      console.log('Response:', data); // Debug log
+
+      if (!response.ok) {
+        throw new Error(data.message || 'Signup failed');
+      }
+
+      localStorage.setItem('token', data.token);
+      navigate('/dashboard');
+    } catch (err) {
+      setError(err.message);
+      console.error('Signup error:', err); // Detailed error logging
+    } finally {
+      setIsSubmitting(false);
+    }
+};
 
   return (
     <div className="min-h-screen flex items-center justify-center bg-gray-50 dark:bg-gray-900 p-4">

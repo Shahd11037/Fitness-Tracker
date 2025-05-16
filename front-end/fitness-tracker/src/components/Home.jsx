@@ -40,9 +40,7 @@ export default function Home() {
               <Link to="/signup" className="btn btn-primary btn-block sm:btn-block md:w-auto">
                 Get Started - It's Free
               </Link>
-              <Link to="/dashboard" className="btn btn-secondary btn-block sm:btn-block md:w-auto">
-                View Demo
-              </Link>
+              
             </div>
             
             {/* Feature bullets */}
