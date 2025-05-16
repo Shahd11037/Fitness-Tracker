@@ -19,7 +19,14 @@ export default function Sidebar() {
           <FaChartBar className="sidebar-icon" />
           <span>Dashboard</span>
         </NavLink>
-        
+        {/* ✅ Workouts button */}
+        <NavLink 
+          to="/workouts" 
+          className={({ isActive }) => `sidebar-nav-item ${isActive ? 'active' : ''}`}
+        >
+          <FaRunning className="sidebar-icon" />
+          <span>Workouts</span>
+        </NavLink>
        
       </nav>
     </aside>

@@ -6,6 +6,10 @@ import Signup from './components/Signup';
 import Dashboard from './components/Dashboard';
 import Home from './components/Home';
 import './App.css'; // Import the main CSS file
+import WorkoutHistory from './components/workoutHistory';
+import WorkoutDetails from './components/workoutDetails';
+import WorkoutPage  from './components/workouts';
+import CreateWorkoutPage from './components/createWorkout';
 
 // Main App component that handles routing and theme
 function App() {
@@ -39,6 +43,12 @@ function App() {
           <Route path="/login" element={<Login />} />
           <Route path="/signup" element={<Signup />} />
           <Route path="/dashboard" element={<Dashboard darkMode={isDarkMode} toggleDarkMode={toggleDarkMode} />} />
+{/*           <Route path="/home" element={<Home />} /> */}
+
+          <Route path="/workouts" element={<WorkoutPage />} />
+          <Route path="/history" element={<WorkoutHistory />} />
+          <Route path="/workoutDetails" element={<WorkoutDetails />} />
+          <Route path="/create" element={<CreateWorkoutPage />} />
         </Routes>
       </div>
     </Router>

@@ -4,7 +4,7 @@ import '../workoutStyle.css';
 const Navbar = () => (
 <header className="navbar">
     <div className="navbar-left">
-    <NavLink to="/" end className={({ isActive }) => isActive ? 'active' : ''}>Home</NavLink>
+    <NavLink to="/dashboard" end className={({ isActive }) => isActive ? 'active' : ''}>Dashboard</NavLink>
     <NavLink to="/workouts" className={({ isActive }) => isActive ? 'active' : ''}>Workouts</NavLink>
     <NavLink to="/history" className={({ isActive }) => isActive ? 'active' : ''}>History</NavLink>
   </div>
