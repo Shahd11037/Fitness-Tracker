@@ -101,24 +101,6 @@ export default function Login() {
             </Form>
           )}
         </Formik>
-        
-        <div className="divider">
-          <div className="divider-line"></div>
-          <span className="divider-text">OR CONTINUE WITH</span>
-          <div className="divider-line"></div>
-        </div>
-        
-        <div className="flex gap-4">
-          <button className="btn btn-secondary btn-with-icon btn-full">
-            <FaGoogle className="text-gray-700 dark:text-gray-200" />
-            <span>Google</span>
-          </button>
-          <button className="btn btn-secondary btn-with-icon btn-full">
-            <FaFacebookF className="text-blue-600" />
-            <span>Facebook</span>
-          </button>
-        </div>
-        
         <p className="mt-6 text-center text-sm text-gray-500 dark:text-gray-400">
           Don't have an account?{' '}
           <Link to="/signup" className="text-primary hover:underline font-medium">
