@@ -1,17 +1,17 @@
 const express = require('express');
 const router = express.Router();
 const workoutController = require('../controllers/workoutController');
-const auth = require('../middleware/authMiddleware');
+const { protect } = require('../middleware/authMiddleware'); 
 
-// Apply auth middleware to all workout routes to ensure users are logged in
-router.use(auth);
+// Apply middleware
+//router.use(auth);
+console.log('auth middleware loaded:', typeof auth);
 
-// CRUD Routes
-// Get all workouts (for the logged-in user)
-router.get('/', workoutController.getAllWorkouts);
-router.get('/:id', workoutController.getWorkoutById);
-router.post('/', workoutController.createWorkout);
-router.delete('/:id', workoutController.deleteWorkout);
-router.put('/:id', workoutController.updateWorkout);
+// Workout Routes
+router.get('/', protect, workoutController.getAllWorkouts);
+router.get('/:id', protect, workoutController.getWorkoutById);
+router.post('/', protect, workoutController.createWorkout);
+router.put('/:id', protect, workoutController.updateWorkout);
+router.delete('/:id', protect, workoutController.deleteWorkout);
 
 module.exports = router;

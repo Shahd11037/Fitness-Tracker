@@ -13,6 +13,13 @@ const app = express();
 app.use(cors());
 app.use(express.json());
 
+const setupSwagger = require('./swagger');
+setupSwagger(app); // Initialize Swagger
+
+app.get('/', (req, res) => {
+  res.send('Fitness Tracker API is running!');
+});
+
 app.use('/api/auth', authRoutes);
 app.use('/api/workouts', workoutRoutes);
 
