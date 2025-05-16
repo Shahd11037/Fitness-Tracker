@@ -1,0 +1,313 @@
+/* General Reset */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: 'Inter', sans-serif;
+  background-color: #fff;
+  color: #111;
+  line-height: 1.6;
+}
+
+/* Navbar */
+/* .navbar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background-color: #111;
+  color: #fff;
+  padding: 1rem 2rem;
+}
+
+.navbar-left a {
+  color: #ccc;
+  text-decoration: none;
+  margin-right: 1.5rem;
+  font-weight: 500;
+}
+
+.navbar-left a.active,
+.navbar-left a:hover {
+  color: white;
+  border-bottom: 2px solid white;
+  padding-bottom: 4px;
+}
+
+.navbar-right h1 {
+  font-size: 1.5rem;
+  font-weight: 700;
+  position: relative;
+}
+
+.dot {
+  color: #00b894;
+} */
+
+/* Main Content */
+.workout-container {
+  padding: 2rem;
+}
+
+.workout-container2 {
+  padding: 0rem;
+  max-width: 1200px;
+  margin: 0 auto; /* Center content horizontally */
+  display: flex;
+  flex-direction: column;
+  gap: 0rem;
+}
+
+/* .workout-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 2rem;
+} */
+
+.workout-header h2 {
+  font-size: 2rem;
+}
+
+.workout-actions {
+  display: flex;
+  gap: 1rem;
+}
+
+.action-btn {
+  padding: 0.5rem 1rem;
+  height: 2.7rem;
+  border: 1px solid #111;
+  background-color: transparent;
+  cursor: pointer;
+  font-weight: 600;
+}
+
+.search-box {
+  display: flex;
+  align-items: center;
+  left: 10rem;
+  border: 1px solid #111;
+  padding: 0.5rem;
+  position: relative;
+}
+
+.search-box input {
+  border: none;
+  outline: none;
+  font-size: 1rem;
+}
+
+.search-icon {
+  margin-left: 0.5rem;
+  position: relative;
+}
+
+/* Workout Cards */
+.workout-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  gap: 1.5rem;
+  
+}
+
+.workout-card {
+  flex: 0 0 250px;
+  width: 100%;
+  aspect-ratio: 3 / 4;
+  position: relative;
+  overflow: hidden;
+  border-radius: 10px;
+  box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+  /*scroll-snap-align: start;*/
+}
+
+
+.workout-card img {
+  width: 100%;
+  height: auto;
+  display: block;
+
+}
+
+
+.workout-overlay {
+  position: absolute;
+  bottom: 0;
+  color: white;
+  background: linear-gradient(transparent, rgba(0, 0, 0, 0.8));
+  padding: 1rem;
+  width: 100%;
+}
+
+.start-tag {
+  background-color: black;
+  padding: 0.5rem 1.9rem;
+  font-size: 0.99rem;
+  font-weight: bold;
+  display: inline-block;
+  margin-bottom: 0.5rem;
+}
+
+.workout-overlay h3 {
+  font-size: 1.9rem;
+  font-weight: 700;
+  line-height: 1.2;
+  margin-bottom: 0.2rem;
+}
+
+.descrip {
+  font-size: 1.2rem;
+  line-height: 1.3;
+}
+
+.details2 {
+  font-size: 1.0rem;
+  color: #ccc;
+  margin-top: 0.3rem;
+}
+.start-button {
+  position: absolute;
+  top: -27px;
+  left: 17px;
+  background-color: rgba(0, 0, 0, 0.8);
+  color: #fff;
+  padding: 6px 30px;
+  border-radius: 8px;
+  border: 2px solid white;
+  font-size: 0.9rem;
+  font-weight: bold;
+  text-transform: uppercase;
+  cursor: pointer;
+  transition: background-color 0.3s, transform 0.2s;
+  z-index: 2;
+  text-decoration: none;
+  display: inline-block;
+}
+
+.start-button:hover {
+  background-color: #fff;
+  color: #000;
+  transform: scale(1.05);
+}
+
+
+/* ------------------------ */
+/* Responsive Styles Below  */
+/* ------------------------ */
+@media (max-width: 768px) {
+  .navbar {
+    flex-direction: column;
+    align-items: flex-start;
+    padding: 1rem;
+  }
+
+  .navbar-left a {
+    display: block;
+    margin: 0.5rem 0;
+  }
+
+  .navbar-right h1 {
+    font-size: 1.2rem;
+    margin-top: 0.5rem;
+  }
+
+  .workout-header {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 1rem;
+  }
+
+  .workout-header h2 {
+    font-size: 1.5rem;
+  }
+
+  .workout-actions {
+    flex-direction: column;
+    width: 100%;
+  }
+
+  .search-box {
+
+    width: 100%;
+  }
+
+  .workout-grid {
+    grid-template-columns: 1fr;
+    gap: 1rem;
+  }
+
+  .workout-overlay h3 {
+    font-size: 1.3rem;
+  }
+
+  .descrip {
+    font-size: 1rem;
+  }
+
+  .details {
+    font-size: 0.9rem;
+  }
+
+  .start-button {
+    top: -22px;
+    left: 12px;
+    font-size: 0.8rem;
+    padding: 5px 20px;
+  }
+}
+
+.edit-modal {
+  background: #1a1a1a;
+  padding: 20px;
+  border-radius: 10px;
+  color: white;
+  width: 300px;
+  margin: 20px auto;
+  border: 1px solid #555;
+}
+.edit-modal input {
+  width: 100%;
+  padding: 5px;
+  margin-bottom: 10px;
+}
+.edit-modal button {
+  margin-right: 10px;
+  padding: 5px 10px;
+}
+
+.card-container {
+  position: relative;
+  display: inline-block;
+  margin: 20px;
+}
+
+.button-group {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  display: flex;
+  gap: 10px;
+  z-index: 10;
+}
+
+.edit-btn {
+  background-color: blue;
+  color: white;
+  border: none;
+  padding: 5px 10px;
+  border-radius: 6px;
+  cursor: pointer;
+}
+
+.delete-btn {
+  background-color: red;
+  color: white;
+  border: none;
+  padding: 5px 10px;
+  border-radius: 6px;
+  cursor: pointer;
+}
+
