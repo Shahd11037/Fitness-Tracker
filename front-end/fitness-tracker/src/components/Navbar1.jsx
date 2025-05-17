@@ -1,8 +1,30 @@
 import React from 'react';
-import { FaSearch, FaBell } from 'react-icons/fa';
+import { Link, useNavigate } from 'react-router-dom';
+import { FaBars,FaSearch , FaCog, FaSignOutAlt } from 'react-icons/fa';
 import ThemeToggle from './ThemeToggle';
+import { toast } from 'react-toastify';
 
-export default function Navbar({ toggleSidebar }) {
+export default function Navbar({ toggleSidebar, darkMode, toggleDarkMode }) {
+  const navigate = useNavigate();
+
+  const handleLogout = () => {
+    // Clear local storage
+    localStorage.removeItem('token');
+    
+    // Show logout toast
+    toast.info('You have been logged out', {
+      position: "top-right",
+      autoClose: 2000,
+      hideProgressBar: false,
+      closeOnClick: true,
+      pauseOnHover: true,
+      draggable: true,
+    });
+    
+    // Redirect to home page
+    navigate('/home');
+  };
+  
   return (
     <nav className="navbar">
       {/* Mobile menu button - only visible on mobile */}
@@ -30,7 +52,21 @@ export default function Navbar({ toggleSidebar }) {
             className="search-input"
           />
         </div>
-        <ThemeToggle />
+        <ThemeToggle isDarkMode={darkMode} toggleDarkMode={toggleDarkMode} />
+      </div>
+      
+      <div className="navbar-right">
+        <button className="navbar-icon-btn" aria-label="Settings">
+          <FaCog />
+        </button>
+        
+        <button 
+          className="navbar-icon-btn text-red-500" 
+          aria-label="Logout"
+          onClick={handleLogout}
+        >
+          <FaSignOutAlt />
+        </button>
       </div>
     </nav>
   );

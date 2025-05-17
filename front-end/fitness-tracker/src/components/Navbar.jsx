@@ -1,37 +1,88 @@
-import React from 'react';
-import { FaSearch, FaBell } from 'react-icons/fa';
-import ThemeToggle from './ThemeToggle';
+import React, { useState, useEffect } from 'react';
+import { NavLink, useNavigate } from 'react-router-dom';
+import { FaDumbbell, FaChartBar, FaHistory, FaSignOutAlt } from 'react-icons/fa';
+import { toast } from 'react-toastify';
+import '../workoutStyle.css';
 
-export default function Navbar({ toggleSidebar }) {
+const Navbar = () => {
+  const [scrolled, setScrolled] = useState(false);
+  const navigate = useNavigate();
+  
+  // Handle scroll effect for navbar
+  useEffect(() => {
+    const handleScroll = () => {
+      if (window.scrollY > 20) {
+        setScrolled(true);
+      } else {
+        setScrolled(false);
+      }
+    };
+    
+    window.addEventListener('scroll', handleScroll);
+    return () => window.removeEventListener('scroll', handleScroll);
+  }, []);
+  
+  const handleLogout = () => {
+    localStorage.removeItem('token');
+    toast.success('Logged out successfully', {
+      position: "top-right",
+      autoClose: 2000,
+      style: { backgroundColor: '#22c55e', color: 'white' }
+    });
+    navigate('/');
+  };
+  
   return (
-    <nav className="navbar">
-      {/* Mobile menu button - only visible on mobile */}
-      <button 
-        className="md:hidden p-2 rounded-md hover:bg-gray-100 dark:hover:bg-gray-700"
-        onClick={toggleSidebar}
-        aria-label="Open menu"
-      >
-        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-          <path d="M4 6H20M4 12H20M4 18H20" stroke="currentColor" strokeWidth="2" strokeLinecap="round"/>
-        </svg>
-      </button>
-      
-      <div className="flex items-center">
-        <h1 className="text-xl font-bold text-gray-900 dark:text-white">Dashboard</h1>
-        <span className="ml-3 text-xs bg-green-100 text-green-800 dark:bg-green-900 dark:text-green-200 py-1 px-2 rounded-full font-medium">Beta</span>
-      </div>
-      
-      <div className="flex items-center gap-4">
-        <div className="relative hidden md:block">
-          <FaSearch className="search-icon" />
-          <input
-            type="search"
-            placeholder="Search..."
-            className="search-input"
-          />
+    <header className={`modern-navbar ${scrolled ? 'scrolled' : ''}`}>
+      <div className="nav-container">
+        <div className="logo-section">
+          <div className="logo-icon">
+            <FaDumbbell />
+          </div>
+          <h1 className="logo-text">
+            FitTrack<span className="highlight">.</span>
+          </h1>
         </div>
-        <ThemeToggle />
+        
+        <nav className="nav-links">
+          <NavLink 
+            to="/dashboard" 
+            className={({ isActive }) => 
+              `nav-link ${isActive ? 'active' : ''}`
+            }
+          >
+            <FaChartBar className="nav-icon" />
+            <span>Dashboard</span>
+          </NavLink>
+          
+          <NavLink 
+            to="/workouts" 
+            className={({ isActive }) => 
+              `nav-link ${isActive ? 'active' : ''}`
+            }
+          >
+            <FaDumbbell className="nav-icon" />
+            <span>Workouts</span>
+          </NavLink>
+          
+          <NavLink 
+            to="/history" 
+            className={({ isActive }) => 
+              `nav-link ${isActive ? 'active' : ''}`
+            }
+          >
+            <FaHistory className="nav-icon" />
+            <span>History</span>
+          </NavLink>
+        </nav>
+        
+        <button className="logout-button" onClick={handleLogout}>
+          <FaSignOutAlt />
+          <span>Logout</span>
+        </button>
       </div>
-    </nav>
+    </header>
   );
-}
+};
+
+export default Navbar;

@@ -5,7 +5,7 @@ import StatsCard from './StatsCard';
 import ProgressChart from './ProgressChart';
 import { FaRunning, FaDumbbell, FaAppleAlt, FaHeartbeat } from 'react-icons/fa';
 
-export default function Dashboard() {
+export default function Dashboard({ darkMode, toggleDarkMode }) {
   // State for mobile sidebar toggle
   const [sidebarOpen, setSidebarOpen] = useState(false);
   
@@ -60,7 +60,11 @@ export default function Dashboard() {
       
       {/* Main content */}
       <main className="main-content">
-        <Navbar toggleSidebar={toggleSidebar} />
+        <Navbar 
+          toggleSidebar={toggleSidebar}
+          darkMode={darkMode}
+          toggleDarkMode={toggleDarkMode}
+        />
         
         {/* Stats Cards Grid */}
         <div className="stats-grid">

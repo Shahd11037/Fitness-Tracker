@@ -10,6 +10,9 @@ import WorkoutHistory from './components/workoutHistory';
 import WorkoutDetails from './components/workoutDetails';
 import WorkoutPage  from './components/workouts';
 import CreateWorkoutPage from './components/createWorkout';
+import { ToastContainer } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
+import { ProtectedRoute, PublicRoute } from './components/ProtectedRoute';
 
 // Main App component that handles routing and theme
 function App() {
@@ -37,16 +40,41 @@ function App() {
   return (
     <Router>
       <div className="App">
+        <ToastContainer 
+          position="top-right"
+          autoClose={3000}
+          hideProgressBar={false}
+          newestOnTop
+          closeOnClick
+          rtl={false}
+          pauseOnFocusLoss
+          draggable
+          pauseOnHover
+          theme={isDarkMode ? "dark" : "light"}
+          style={{ zIndex: 9999 }}
+        />
         <Routes>
+          {/* Public routes - accessible to everyone */}
           <Route path="/" element={<Navigate to="/home" />} />
           <Route path="/home" element={<Home />} />
-          <Route path="/login" element={<Login />} />
-          <Route path="/signup" element={<Signup />} />
-          <Route path="/dashboard" element={<Dashboard darkMode={isDarkMode} toggleDarkMode={toggleDarkMode} />} />
-          <Route path="/workouts" element={<WorkoutPage />} />
-          <Route path="/history" element={<WorkoutHistory />} />
-          <Route path="/workoutDetails" element={<WorkoutDetails />} />
-          <Route path="/create" element={<CreateWorkoutPage />} />
+          
+          {/* Public routes - only for non-authenticated users */}
+          <Route element={<PublicRoute />}>
+            <Route path="/login" element={<Login />} />
+            <Route path="/signup" element={<Signup />} />
+          </Route>
+          
+          {/* Protected routes - only for authenticated users */}
+          <Route element={<ProtectedRoute />}>
+            <Route path="/dashboard" element={<Dashboard darkMode={isDarkMode} toggleDarkMode={toggleDarkMode} />} />
+            <Route path="/workouts" element={<WorkoutPage />} />
+            <Route path="/history" element={<WorkoutHistory />} />
+            <Route path="/workoutDetails" element={<WorkoutDetails />} />
+            <Route path="/create" element={<CreateWorkoutPage />} />
+          </Route>
+          
+          {/* Fallback route */}
+          <Route path="*" element={<Navigate to="/" />} />
         </Routes>
       </div>
     </Router>

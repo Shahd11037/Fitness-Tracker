@@ -1,0 +1,380 @@
+.container {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  background-color: #f7f9f8;
+  font-family: 'Inter', 'Segoe UI', system-ui, sans-serif;
+}
+
+/* Header Styles */
+.header {
+  background-color: #ffffff;
+  padding: 1.25rem 0;
+  border-bottom: 1px solid rgba(0, 0, 0, 0.05);
+}
+
+.headerContent {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 2rem;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.logo {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+}
+
+.logoIcon {
+  color: #22c55e;
+  font-size: 1.75rem;
+}
+
+.logoText {
+  font-size: 1.375rem;
+  font-weight: 700;
+  color: #333;
+}
+
+.headerButtons {
+  display: flex;
+  gap: 1rem;
+}
+
+.primaryButton {
+  display: flex;
+  align-items: center;
+  padding: 0.6rem 1.5rem;
+  background-color: #22c55e;
+  color: white;
+  font-weight: 600;
+  border-radius: 2rem;
+  text-decoration: none;
+  transition: all 0.2s ease;
+  font-size: 0.9375rem;
+  border: none;
+}
+
+.primaryButton:hover {
+  background-color: #16a34a;
+  box-shadow: 0 4px 12px rgba(34, 197, 94, 0.25);
+  transform: translateY(-2px);
+}
+
+.secondaryButton {
+  display: flex;
+  align-items: center;
+  padding: 0.6rem 1.5rem;
+  background-color: #ffffff;
+  color: #333;
+  font-weight: 600;
+  border-radius: 2rem;
+  text-decoration: none;
+  border: 1px solid rgba(0, 0, 0, 0.1);
+  transition: all 0.2s ease;
+  font-size: 0.9375rem;
+}
+
+.secondaryButton:hover {
+  background-color: #f9fafb;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+}
+
+.buttonIcon {
+  margin-right: 0.5rem;
+}
+
+/* Hero Section */
+.heroSection {
+  flex: 1;
+  display: flex;
+  align-items: center;
+}
+
+.heroContent {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 4rem 2rem;
+  display: flex;
+  flex-direction: column;
+  gap: 3rem;
+}
+
+@media (min-width: 768px) {
+  .heroContent {
+    flex-direction: row;
+    align-items: center;
+    gap: 4rem;
+  }
+}
+
+.heroText {
+  flex: 1;
+  animation: fadeIn 0.8s ease-out;
+}
+
+.heroTitle {
+  font-size: 2.5rem;
+  line-height: 1.1;
+  font-weight: 800;
+  color: #333;
+  margin-bottom: 1.5rem;
+}
+
+@media (min-width: 768px) {
+  .heroTitle {
+    font-size: 3.25rem;
+  }
+}
+
+.heroSubtitle {
+  font-size: 1.125rem;
+  line-height: 1.6;
+  color: #555;
+  margin-bottom: 2rem;
+  max-width: 40rem;
+}
+
+.ctaContainer {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1rem;
+  margin-bottom: 2.5rem;
+  align-items: center;
+}
+
+.ctaButton {
+  display: flex;
+  align-items: center;
+  padding: 0.875rem 1.75rem;
+  background-color: #22c55e;
+  color: white;
+  font-weight: 600;
+  border-radius: 2rem;
+  text-decoration: none;
+  transition: all 0.2s ease;
+  font-size: 1rem;
+}
+
+.ctaButton:hover {
+  background-color: #16a34a;
+  box-shadow: 0 4px 12px rgba(34, 197, 94, 0.25);
+  transform: translateY(-2px);
+}
+
+.arrowIcon {
+  margin-left: 0.5rem;
+  font-size: 0.875rem;
+  transition: transform 0.2s ease;
+}
+
+.ctaButton:hover .arrowIcon {
+  transform: translateX(3px);
+}
+
+.secondaryLink {
+  color: #555;
+  text-decoration: none;
+  font-weight: 600;
+  padding: 0.875rem 0;
+  transition: color 0.2s ease;
+}
+
+.secondaryLink:hover {
+  color: #22c55e;
+}
+
+.featureList {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.featureItem {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  color: #555;
+  font-size: 1rem;
+}
+
+.checkIcon {
+  color: #22c55e;
+  font-size: 1.125rem;
+  flex-shrink: 0;
+}
+
+/* Dashboard Preview Styles */
+.heroVisual {
+  flex: 1;
+  display: flex;
+  justify-content: center;
+  position: relative;
+  perspective: 1000px;
+  animation: slideUp 0.8s ease-out 0.2s both;
+}
+
+.dashboardPreview {
+  background: white;
+  border-radius: 20px;
+  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.06);
+  padding: 2rem;
+  width: 100%;
+  max-width: 450px;
+  position: relative;
+  overflow: hidden;
+  transform: rotateY(2deg) rotateX(2deg);
+  transition: transform 0.5s ease;
+}
+
+.dashboardPreview:hover {
+  transform: rotateY(0) rotateX(0);
+  box-shadow: 0 25px 50px rgba(0, 0, 0, 0.1);
+}
+
+.decorationElement {
+  position: absolute;
+  width: 150px;
+  height: 150px;
+  background: linear-gradient(135deg, rgba(34, 197, 94, 0.15), rgba(34, 197, 94, 0.05));
+  border-radius: 30px;
+  transform: rotate(45deg);
+  top: -50px;
+  right: -50px;
+  z-index: -1;
+  pointer-events: none;
+}
+
+.progressCard {
+  background-color: #f9fafb;
+  border-radius: 16px;
+  padding: 1.5rem;
+  margin-bottom: 1.5rem;
+}
+
+.progressHeader {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 1.5rem;
+}
+
+.cardLabel {
+  font-size: 1rem;
+  font-weight: 600;
+  color: #333;
+}
+
+.chartIcon {
+  color: #22c55e;
+}
+
+.chart {
+  height: 150px;
+  width: 100%;
+  position: relative;
+  margin-bottom: 0.75rem;
+}
+
+.chartLine {
+  fill: none;
+  stroke: #22c55e;
+  stroke-width: 2;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+  filter: drop-shadow(0 2px 4px rgba(34, 197, 94, 0.2));
+}
+
+.dataPoint {
+  fill: white;
+  stroke: #22c55e;
+  stroke-width: 2;
+}
+
+.chartLabels {
+  display: flex;
+  justify-content: space-between;
+  font-size: 0.75rem;
+  color: #777;
+}
+
+.workoutCards {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.workoutCard {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background-color: #f9fafb;
+  padding: 1.25rem;
+  border-radius: 12px;
+}
+
+.workoutTitle {
+  font-weight: 600;
+  color: #333;
+  margin: 0 0 0.25rem 0;
+  font-size: 1rem;
+}
+
+.workoutMeta {
+  font-size: 0.75rem;
+  color: #777;
+}
+
+.completedBadge {
+  background-color: rgba(34, 197, 94, 0.15);
+  color: #16a34a;
+  padding: 0.35rem 0.75rem;
+  border-radius: 1rem;
+  font-size: 0.75rem;
+  font-weight: 600;
+}
+
+/* Footer */
+.footer {
+  background-color: #f7f9f8;
+  padding: 1.5rem 0;
+  border-top: 1px solid rgba(0, 0, 0, 0.05);
+}
+
+.footerContent {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 2rem;
+  text-align: center;
+}
+
+.copyright {
+  color: #777;
+  font-size: 0.875rem;
+}
+
+/* Animations */
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes slideUp {
+  from {
+    opacity: 0;
+    transform: translateY(40px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
