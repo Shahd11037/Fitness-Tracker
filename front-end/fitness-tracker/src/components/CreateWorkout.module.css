@@ -1,0 +1,268 @@
+.pageContainer {
+  min-height: 100vh;
+  background-color: #f7f9f8;
+  font-family: 'Inter', 'Segoe UI', system-ui, sans-serif;
+}
+
+.contentContainer {
+  max-width: 800px;
+  margin: 0 auto;
+  padding: 2rem 1.5rem;
+}
+
+.formCard {
+  background-color: white;
+  border-radius: 16px;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+  padding: 2.5rem;
+  margin-top: 2rem;
+  animation: fadeIn 0.4s ease-out;
+}
+
+.cardHeader {
+  margin-bottom: 2.5rem;
+}
+
+.title {
+  font-size: 1.75rem;
+  font-weight: 700;
+  color: #1f2937;
+  margin: 0 0 0.75rem 0;
+}
+
+.subtitle {
+  color: #6b7280;
+  font-size: 1rem;
+}
+
+.workoutForm {
+  display: flex;
+  flex-direction: column;
+  gap: 1.75rem;
+}
+
+.formGroup {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+}
+
+.formRow {
+  display: flex;
+  flex-direction: column;
+  gap: 1.75rem;
+}
+
+@media (min-width: 640px) {
+  .formRow {
+    flex-direction: row;
+    gap: 1.5rem;
+  }
+}
+
+.formLabel {
+  font-size: 0.9375rem;
+  font-weight: 600;
+  color: #374151;
+  margin-bottom: 0.5rem;
+}
+
+.formInput, 
+.formTextarea, 
+.formSelect {
+  width: 100%;
+  padding: 0.75rem 1rem;
+  border: 1px solid #e5e7eb;
+  border-radius: 8px;
+  font-size: 1rem;
+  color: #1f2937;
+  background-color: #f9fafb;
+  transition: all 0.2s ease;
+}
+
+.formInput:focus, 
+.formTextarea:focus, 
+.formSelect:focus {
+  outline: none;
+  border-color: #22c55e;
+  box-shadow: 0 0 0 3px rgba(34, 197, 94, 0.15);
+  background-color: white;
+}
+
+.formInput::placeholder, 
+.formTextarea::placeholder {
+  color: #9ca3af;
+}
+
+.selectWrapper {
+  position: relative;
+}
+
+.categoryIcon {
+  position: absolute;
+  left: 1rem;
+  top: 50%;
+  transform: translateY(-50%);
+  color: #22c55e;
+  z-index: 2;
+}
+
+.formSelect.hasIcon {
+  padding-left: 2.5rem;
+}
+
+.formSelect {
+  appearance: none;
+  background-image: url("data:image/svg+xml;charset=UTF-8,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%236B7280' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3e%3cpolyline points='6 9 12 15 18 9'%3e%3c/polyline%3e%3c/svg%3e");
+  background-repeat: no-repeat;
+  background-position: right 1rem center;
+  background-size: 1em;
+  padding-right: 2.5rem;
+}
+
+.imageUploader {
+  border: 2px dashed #e5e7eb;
+  border-radius: 12px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  overflow: hidden;
+  position: relative;
+}
+
+.imageUploader:hover {
+  border-color: #22c55e;
+  background-color: rgba(34, 197, 94, 0.05);
+}
+
+.uploadPlaceholder {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 3rem 1rem;
+  text-align: center;
+}
+
+.uploadIcon {
+  font-size: 2.5rem;
+  color: #22c55e;
+  margin-bottom: 1rem;
+  opacity: 0.7;
+}
+
+.uploadText {
+  font-size: 1.125rem;
+  font-weight: 500;
+  color: #4b5563;
+  margin-bottom: 0.5rem;
+}
+
+.uploadHint {
+  font-size: 0.875rem;
+  color: #9ca3af;
+}
+
+.fileInput {
+  opacity: 0;
+  width: 0.1px;
+  height: 0.1px;
+  position: absolute;
+}
+
+.imagePreviewContainer {
+  position: relative;
+  width: 100%;
+  height: 0;
+  padding-bottom: 56.25%; /* 16:9 aspect ratio */
+  overflow: hidden;
+}
+
+.imagePreview {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.actionBar {
+  display: flex;
+  justify-content: flex-end;
+  gap: 1rem;
+  margin-top: 0.5rem;
+}
+
+.submitButton, 
+.cancelButton {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0.75rem 1.5rem;
+  border-radius: 8px;
+  font-weight: 600;
+  transition: all 0.2s ease;
+  cursor: pointer;
+  font-size: 0.9375rem;
+}
+
+.submitButton {
+  background-color: #22c55e;
+  color: white;
+  border: none;
+  min-width: 140px;
+}
+
+.submitButton:hover:not(:disabled) {
+  background-color: #16a34a;
+  box-shadow: 0 4px 12px rgba(34, 197, 94, 0.25);
+  transform: translateY(-1px);
+}
+
+.submitButton:disabled {
+  background-color: #9ca3af;
+  cursor: not-allowed;
+}
+
+.cancelButton {
+  background-color: transparent;
+  color: #4b5563;
+  border: 1px solid #e5e7eb;
+}
+
+.cancelButton:hover {
+  background-color: #f3f4f6;
+  color: #1f2937;
+}
+
+.buttonIcon {
+  margin-right: 0.5rem;
+}
+
+.spinnerIcon {
+  display: block;
+  width: 1rem;
+  height: 1rem;
+  margin-right: 0.5rem;
+  border: 2px solid rgba(255, 255, 255, 0.3);
+  border-top-color: white;
+  border-radius: 50%;
+  animation: spin 0.8s linear infinite;
+}
+
+@keyframes spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
