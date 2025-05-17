@@ -10,30 +10,85 @@ function WorkoutHistory() {
   const [difficultyFilter, setDifficultyFilter] = useState('');
   const [editingWorkout, setEditingWorkout] = useState(null);
   const [editedFields, setEditedFields] = useState({});
+  const [_loading, setLoading] = useState(true);
+  const [_error, setError] = useState('');
 
   useEffect(() => {
-    const stored = JSON.parse(localStorage.getItem('historyWorkouts')) || [];
-    setHistory(stored);
+    const fetchWorkouts = async () => {
+      try {
+        const token = localStorage.getItem('token');
+        const response = await fetch('http://localhost:5000/api/workouts', {
+          headers: {
+            'Authorization': `Bearer ${token}`
+          }
+        });
+        
+        if (!response.ok) {
+          throw new Error('Failed to fetch workouts');
+        }
+        
+        const data = await response.json();
+        setHistory(data);
+      } catch (err) {
+        setError(err.message);
+        console.error('Fetch error:', err);
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    fetchWorkouts();
   }, []);
 
-  const deleteWorkout = (workoutId) => {
-    const updatedHistory = history.filter(workout => workout.id !== workoutId);
-    setHistory(updatedHistory);
-    localStorage.setItem('historyWorkouts', JSON.stringify(updatedHistory));
+  const deleteWorkout = async (workoutId) => {
+    try {
+      const token = localStorage.getItem('token');
+      const response = await fetch(`http://localhost:5000/api/workouts/${workoutId}`, {
+        method: 'DELETE',
+        headers: {
+          'Authorization': `Bearer ${token}`
+        }
+      });
+
+      if (!response.ok) {
+        throw new Error('Failed to delete workout');
+      }
+
+      setHistory(prev => prev.filter(workout => workout._id !== workoutId));
+    } catch (err) {
+      setError(err.message);
+      console.error('Delete error:', err);
+    }
   };
 
-  const handleEditClick = (workout) => {
-    setEditingWorkout(workout);
-    setEditedFields({ ...workout });
+  const handleSaveEdit = async () => {
+    try {
+      const token = localStorage.getItem('token');
+      const response = await fetch(`http://localhost:5000/api/workouts/${editingWorkout._id}`, {
+        method: 'PUT',
+        headers: {
+          'Content-Type': 'application/json',
+          'Authorization': `Bearer ${token}`
+        },
+        body: JSON.stringify(editedFields)
+      });
+
+      if (!response.ok) {
+        throw new Error('Failed to update workout');
+      }
+
+      const updatedWorkout = await response.json();
+      setHistory(prev => 
+        prev.map(w => w._id === updatedWorkout._id ? updatedWorkout : w)
+      );
+      setEditingWorkout(null);
+    } catch (err) {
+      setError(err.message);
+      console.error('Update error:', err);
+    }
   };
 
-  const handleSaveEdit = () => {
-    const updated = history.map(w => w.id === editingWorkout.id ? editedFields : w);
-    setHistory(updated);
-    localStorage.setItem('historyWorkouts', JSON.stringify(updated));
-    setEditingWorkout(null);
-  };
-
+  
   const handleChange = (e) => {
     const { name, value } = e.target;
     setEditedFields(prev => ({ ...prev, [name]: value }));
@@ -48,12 +103,16 @@ function WorkoutHistory() {
   };
 
   const filteredHistory = history.filter(workout => {
-    const matchesSearch = workout.title.toLowerCase().includes(searchTerm.toLowerCase());
-    const matchesDifficulty = difficultyFilter
-      ? workout.details?.toLowerCase().includes(difficultyFilter.toLowerCase())
-      : true;
-    return matchesSearch && matchesDifficulty;
-  });
+  const title = workout.title || '';
+  const details = workout.details || '';
+  
+  const matchesSearch = title.toLowerCase().includes(searchTerm.toLowerCase());
+  const matchesDifficulty = difficultyFilter
+    ? details.toLowerCase().includes(difficultyFilter.toLowerCase())
+    : true;
+    
+  return matchesSearch && matchesDifficulty;
+});
 
   return (
     <div>
