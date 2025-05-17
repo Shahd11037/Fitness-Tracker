@@ -1,82 +1,110 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import { FaDumbbell, FaChartLine, FaCheckCircle } from 'react-icons/fa';
+import { FaDumbbell, FaChartLine, FaCheckCircle, FaUser, FaArrowRight } from 'react-icons/fa';
+import styles from './Home.module.css';
 
 export default function Home() {
+  const isAuthenticated = localStorage.getItem('token') !== null;
+
   return (
-    <div className="min-h-screen flex flex-col bg-primary-light dark:bg-dark">
+    <div className={styles.container}>
       {/* Header/Navigation */}
-      <header className="bg-white dark:bg-dark-light shadow">
-        <div className="container mx-auto px-4 py-6 flex justify-between items-center">
-          <div className="flex items-center">
-            <FaDumbbell className="text-primary text-3xl mr-2" />
-            <h1 className="text-2xl font-bold text-dark dark:text-light">Fitness Tracker</h1>
+      <header className={styles.header}>
+        <div className={styles.headerContent}>
+          <div className={styles.logo}>
+            <FaDumbbell className={styles.logoIcon} />
+            <h1 className={styles.logoText}>Fitness Tracker</h1>
           </div>
-          <div className="space-x-4">
-            <Link to="/login" className="btn btn-secondary">
-              Sign in
-            </Link>
-            <Link to="/signup" className="btn btn-primary">
-              Sign up
-            </Link>
+          <div className={styles.headerButtons}>
+            {isAuthenticated ? (
+              <Link to="/dashboard" className={styles.primaryButton}>
+                <FaUser className={styles.buttonIcon} />
+                My Dashboard
+              </Link>
+            ) : (
+              <>
+                <Link to="/login" className={styles.secondaryButton}>
+                  Sign in
+                </Link>
+                <Link to="/signup" className={styles.primaryButton}>
+                  Sign up
+                </Link>
+              </>
+            )}
           </div>
         </div>
       </header>
 
       {/* Hero Section */}
-      <section className="flex-grow flex items-center">
-        <div className="container mx-auto px-4 py-12 md:py-24 flex flex-col md:flex-row items-center">
+      <section className={styles.heroSection}>
+        <div className={styles.heroContent}>
           {/* Left column: Text content */}
-          <div className="md:w-1/2 md:pr-8 fade-in">
-            <h2 className="text-4xl md:text-5xl font-bold text-dark dark:text-light mb-6">
+          <div className={styles.heroText}>
+            <h2 className={styles.heroTitle}>
               Track Your Fitness Journey With Ease
             </h2>
-            <p className="text-lg md:text-xl text-dark-light dark:text-gray mb-8">
+            <p className={styles.heroSubtitle}>
               Monitor your workouts, nutrition, and progress all in one place. 
               Set goals, track achievements, and stay motivated on your health journey.
             </p>
             
-            <div className="flex flex-col sm:flex-row gap-4">
-              <Link to="/signup" className="btn btn-primary btn-block sm:btn-block md:w-auto">
-                Get Started - It's Free
+            <div className={styles.ctaContainer}>
+              {isAuthenticated ? (
+                <Link to="/dashboard" className={styles.ctaButton}>
+                  Go to Dashboard
+                  <FaArrowRight className={styles.arrowIcon} />
+                </Link>
+              ) : (
+                <Link to="/signup" className={styles.ctaButton}>
+                  Get Started - It's Free
+                  <FaArrowRight className={styles.arrowIcon} />
+                </Link>
+              )}
+              <Link to="/demo" className={styles.secondaryLink}>
+                View Demo
               </Link>
-              
             </div>
             
             {/* Feature bullets */}
-            <div className="mt-12 space-y-4">
-              <div className="flex items-center">
-                <FaCheckCircle className="text-primary mr-3" />
-                <span className="text-dark-light dark:text-gray">Track workouts and nutrition</span>
+            <div className={styles.featureList}>
+              <div className={styles.featureItem}>
+                <FaCheckCircle className={styles.checkIcon} />
+                <span>Track workouts and nutrition</span>
               </div>
-              <div className="flex items-center">
-                <FaCheckCircle className="text-primary mr-3" />
-                <span className="text-dark-light dark:text-gray">Monitor your progress with detailed charts</span>
+              <div className={styles.featureItem}>
+                <FaCheckCircle className={styles.checkIcon} />
+                <span>Monitor your progress with detailed charts</span>
               </div>
-              <div className="flex items-center">
-                <FaCheckCircle className="text-primary mr-3" />
-                <span className="text-dark-light dark:text-gray">Get personalized recommendations</span>
+              <div className={styles.featureItem}>
+                <FaCheckCircle className={styles.checkIcon} />
+                <span>Get personalized recommendations</span>
               </div>
             </div>
           </div>
           
-          {/* Right column: Image/Illustration */}
-          <div className="md:w-1/2 mt-12 md:mt-0 flex justify-center">
-            <div className="bg-white dark:bg-dark-light p-6 rounded-xl shadow-lg transform rotate-3 max-w-md">
-              <div className="bg-primary-light dark:bg-gray-dark bg-opacity-30 p-1 rounded-lg mb-6">
-                <div className="flex justify-between items-center">
-                  <span className="text-sm font-medium text-primary-dark dark:text-primary">Weekly Progress</span>
-                  <FaChartLine className="text-primary" />
+          {/* Right column: Dashboard Preview */}
+          <div className={styles.heroVisual}>
+            <div className={styles.dashboardPreview}>
+              <div className={styles.progressCard}>
+                <div className={styles.progressHeader}>
+                  <span className={styles.cardLabel}>Weekly Progress</span>
+                  <FaChartLine className={styles.chartIcon} />
                 </div>
                 
-                {/* Fake chart/graph */}
-                <div className="mt-4 h-48 flex items-end justify-between gap-2">
-                  {[35, 60, 45, 80, 55, 75, 68].map((height, index) => (
-                    <div key={index} className="bg-primary h-full rounded-t" style={{ height: `${height}%`, width: '12%' }}></div>
-                  ))}
+                {/* Clean, minimal chart */}
+                <div className={styles.chart}>
+                  <svg width="100%" height="100%" viewBox="0 0 300 150" preserveAspectRatio="none">
+                    <polyline
+                      points="0,100 50,70 100,85 150,40 200,65 250,50 300,30"
+                      className={styles.chartLine}
+                    />
+                    {[0, 50, 100, 150, 200, 250, 300].map((x, i) => (
+                      <circle key={i} cx={x} cy={[100, 70, 85, 40, 65, 50, 30][i]} r="4" className={styles.dataPoint} />
+                    ))}
+                  </svg>
                 </div>
                 
-                <div className="mt-2 flex justify-between text-xs text-dark-light dark:text-gray">
+                <div className={styles.chartLabels}>
                   <span>Mon</span>
                   <span>Tue</span>
                   <span>Wed</span>
@@ -87,32 +115,34 @@ export default function Home() {
                 </div>
               </div>
               
-              <div className="space-y-4">
-                <div className="flex justify-between items-center p-3 bg-gray-light dark:bg-dark rounded-lg">
+              <div className={styles.workoutCards}>
+                <div className={styles.workoutCard}>
                   <div>
-                    <span className="block text-dark dark:text-light font-medium">Morning Run</span>
-                    <span className="text-xs text-gray-dark">5.2 km • 28 min</span>
+                    <h4 className={styles.workoutTitle}>Morning Run</h4>
+                    <span className={styles.workoutMeta}>5.2 km • 28 min</span>
                   </div>
-                  <span className="badge badge-primary">Completed</span>
+                  <span className={styles.completedBadge}>Completed</span>
                 </div>
                 
-                <div className="flex justify-between items-center p-3 bg-gray-light dark:bg-dark rounded-lg">
+                <div className={styles.workoutCard}>
                   <div>
-                    <span className="block text-dark dark:text-light font-medium">Strength Training</span>
-                    <span className="text-xs text-gray-dark">45 min • Upper Body</span>
+                    <h4 className={styles.workoutTitle}>Strength Training</h4>
+                    <span className={styles.workoutMeta}>45 min • Upper Body</span>
                   </div>
-                  <span className="badge badge-primary">Completed</span>
+                  <span className={styles.completedBadge}>Completed</span>
                 </div>
               </div>
+
+              <div className={styles.decorationElement}></div>
             </div>
           </div>
         </div>
       </section>
 
       {/* Footer */}
-      <footer className="bg-white dark:bg-dark-light py-8">
-        <div className="container mx-auto px-4 text-center">
-          <p className="text-dark-light dark:text-gray-dark text-sm">
+      <footer className={styles.footer}>
+        <div className={styles.footerContent}>
+          <p className={styles.copyright}>
             © {new Date().getFullYear()} Fitness Tracker. All rights reserved.
           </p>
         </div>
