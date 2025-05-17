@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import Sidebar from './Sidebar';
-import Navbar from './Navbar';
+import Navbar from './Navbar1';
 import StatsCard from './StatsCard';
 import ProgressChart from './ProgressChart';
 import { FaRunning, FaDumbbell, FaAppleAlt, FaHeartbeat } from 'react-icons/fa';

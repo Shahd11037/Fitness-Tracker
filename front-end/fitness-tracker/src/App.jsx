@@ -43,8 +43,6 @@ function App() {
           <Route path="/login" element={<Login />} />
           <Route path="/signup" element={<Signup />} />
           <Route path="/dashboard" element={<Dashboard darkMode={isDarkMode} toggleDarkMode={toggleDarkMode} />} />
-{/*           <Route path="/home" element={<Home />} /> */}
-
           <Route path="/workouts" element={<WorkoutPage />} />
           <Route path="/history" element={<WorkoutHistory />} />
           <Route path="/workoutDetails" element={<WorkoutDetails />} />

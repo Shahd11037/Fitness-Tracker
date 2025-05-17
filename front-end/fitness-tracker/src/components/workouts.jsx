@@ -1,7 +1,7 @@
 import React, { useRef, useState, useEffect } from 'react';
 import WorkoutCard from './workoutCard';
 import workoutsData from './data.json';
-import Navbar from './navbar';
+import Navbar from './navbar'; 
 import { Link } from 'react-router-dom';
 import '../workoutStyle.css';
 
