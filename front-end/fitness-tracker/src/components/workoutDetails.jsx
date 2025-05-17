@@ -1,10 +1,10 @@
 // src/pages/WorkoutDetails.jsx
-import React, { useEffect, useState } from "react";
-import { useParams  } from 'react-router-dom';
+import React, { _useEffect, useState } from "react";
+import { _useParams  } from 'react-router-dom';
 import { Heart, ChevronDown, ChevronUp } from "lucide-react";
 import '../detailsStyle.css';
 import Navbar from './navbar';
-import workoutsData from './data.json';
+import _workoutsData from './data.json';
 
 
 
@@ -21,7 +21,7 @@ const workoutItems = [
 
 export default function WorkoutDetails() {
   const [isOpen, setIsOpen] = useState(false);
-  const toggleDropdown = () => setIsOpen(!isOpen);
+  const _toggleDropdown = () => setIsOpen(!isOpen);
 
 
   // useEffect(() => {

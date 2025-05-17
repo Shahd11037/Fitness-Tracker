@@ -17,9 +17,9 @@ const WorkoutPage = () => {
   setCustomWorkouts(saved);
   }, []);
 
-  const allWorkouts = [...workoutsData, ...customWorkouts];
+  const _allWorkouts = [...workoutsData, ...customWorkouts];
 
-  const addToHistory = (workout) => {
+  const _addToHistory = (workout) => {
     setHistory([...history, workout]);
   };
 

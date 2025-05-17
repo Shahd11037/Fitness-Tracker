@@ -6,7 +6,7 @@ const userSchema = new mongoose.Schema({
   password: { type: String, required: true },
   weight:   { type: Number },
   height:   { type: Number },
-  workouts: [{ type: mongoose.Schema.Types.ObjectId, ref: 'Workout' }] // ✅ NEW
+  workouts: [{ type: mongoose.Schema.Types.ObjectId, ref: 'Workout' }] 
 });
 
 module.exports = mongoose.model('User', userSchema);

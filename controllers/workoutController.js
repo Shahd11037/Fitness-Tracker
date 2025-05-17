@@ -131,3 +131,35 @@ exports.updateWorkout = async (req, res) => {
     res.status(400).json({ message: error.message });
   }
 };
+
+exports.getWorkoutDetails = async (req, res) => {
+  try {
+    const workout = await Workout.findById(req.params.id)
+      .populate('userId', 'username email');
+    
+    if (!workout) {
+      return res.status(404).json({ 
+        success: false,
+        message: 'Workout not found' 
+      });
+    }
+    
+    // Convert both IDs to string for reliable comparison
+    if (workout.userId._id.toString() !== req.user.id.toString()) {
+      return res.status(403).json({ 
+        success: false,
+        message: 'Access denied' 
+      });
+    }
+
+    res.status(200).json({
+      success: true,
+      data: workout
+    });
+  } catch (error) {
+    res.status(500).json({
+      success: false,
+      message: 'Server error'
+    });
+  }
+};
