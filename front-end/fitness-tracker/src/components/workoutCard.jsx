@@ -4,9 +4,9 @@ import '../workoutStyle.css';
 const WorkoutCard = ({ workout, onDelete }) => {
   return (
     <div className="workout-card">
-      <img src={workout.image} alt="Workout Preview" />
+      <img src={workout.image} alt="Workout Preview" className="workoutImage" />
       <div className="workout-overlay">
-        <Link to={workout.link || "/workoutDetails"} className="explore-button">Explore</Link>
+        <Link to={`/workoutDetails/${workout.id}`} className="explore-button">Explore</Link>
         <h3>{workout.title}</h3>
         <p className="descrip">{workout.description}</p>
         <p className="details">{workout.details}</p>

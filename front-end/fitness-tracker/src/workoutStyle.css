@@ -301,9 +301,7 @@ body {
   box-shadow: 0 4px 10px rgba(0,0,0,0.1);
 } */
 .workout-card {
-  width: 240px;
-  min-width: 240px;
-  max-width: 240px;
+  
   height: auto;
   border-radius: 10px;
   overflow: hidden;

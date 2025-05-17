@@ -1,6 +1,6 @@
 // src/pages/WorkoutDetails.jsx
-import React, { _useEffect, useState } from "react";
-import { _useParams  } from 'react-router-dom';
+import React, { useEffect, useState } from "react";
+import { useParams } from 'react-router-dom';
 import { Heart, ChevronDown, ChevronUp } from "lucide-react";
 import '../detailsStyle.css';
 import Navbar from './navbar';
@@ -19,32 +19,63 @@ const workoutItems = [
   { title: 'Cool Down', duration: '3 min' },
 ];
 
+const updateWorkoutDetails = async (workoutId, token) => {
+  try {
+    const response = await fetch(`http://localhost:5000/api/workouts/${workoutId}`, {
+      method: 'PUT',
+      headers: {
+        'Content-Type': 'application/json',
+        'Authorization': `Bearer ${token}`
+      },
+      body: JSON.stringify({
+        type: 'strength',
+        exercises: [
+          {
+            name: 'Updated Bench Press',
+            sets: 4,
+            reps: 12,
+            weight: 145
+          }
+        ]
+      })
+    });
+
+    if (!response.ok) {
+      throw new Error('Failed to update workout details');
+    }
+
+    const data = await response.json();
+    console.log('Workout updated:', data);
+  } catch (error) {
+    console.error('Error:', error);
+  }
+};
+
 export default function WorkoutDetails() {
-  const [isOpen, setIsOpen] = useState(false);
-  const _toggleDropdown = () => setIsOpen(!isOpen);
+  const { id } = useParams();
+  const [workout, setWorkout] = useState(null);
 
+  useEffect(() => {
+    const fetchWorkoutDetails = async () => {
+      try {
+        const response = await fetch(`http://localhost:5000/api/workouts/${id}`);
+        if (!response.ok) {
+          throw new Error('Failed to fetch workout details');
+        }
+        const data = await response.json();
+        console.log('Fetched workout data:', data);
+        setWorkout(data);
+      } catch (error) {
+        console.error('Error fetching workout details:', error);
+      }
+    };
 
-  // useEffect(() => {
-  //   const allWorkouts = JSON.parse(localStorage.getItem('customWorkouts')) || [];
-  //   const staticWorkouts = workoutsData;
-  //   const combined = [...staticWorkouts, ...allWorkouts];
-  //   const selectedWorkout = combined.find(w => w.id === id);
-  //   setWorkout(selectedWorkout);
-  // }, [id]);
+    fetchWorkoutDetails();
+  }, [id]);
 
-  // const handleStartWorkout = () => {
-  //   const existing = JSON.parse(localStorage.getItem('historyWorkouts')) || [];
-
-  //   // Prevent duplicate entries
-  //   const alreadyExists = existing.some(w => w.id === workout.id);
-  //   if (!alreadyExists) {
-  //     const updated = [...existing, workout];
-  //     localStorage.setItem('historyWorkouts', JSON.stringify(updated));
-  //   }
-
-  //   alert('Workout started and saved to history!');
-  // };
-
+  if (!workout) {
+    return <div>Loading...</div>;
+  }
 
   return (
     <div className="min-h-screen bg-black text-white font-sans">
@@ -66,7 +97,7 @@ export default function WorkoutDetails() {
         {/* Left Side - Image */}
         <div className="image-section">
           <img 
-            src='/pilates.png' 
+            src={workout.image || '/default-image.png'} 
             alt="Workout" 
             className="workout-image"
           />
@@ -78,39 +109,39 @@ export default function WorkoutDetails() {
             <Heart fill="currentColor" />
           </div>
 
-          <h1 className="workout-title">STRENGTH & LENGTH</h1>
-          <h2 className="workout-subtitle">FULL BODY SCULPT</h2>
+          <h1 className="workout-title">{workout.title}</h1>
+          <h2 className="workout-subtitle">{workout.subtitle}</h2>
 
           <div className="workout-meta">
             <div>
-              <p className="duration">29</p>
+              <p className="duration">{workout.duration}</p>
               <p className="duration2">min</p>
             </div>
             <div className="difficulty">
-              <p>Beginner</p>
-              <p>Train with <span className="font-semibold">Ashley Lee</span></p>
+              <p>{workout.difficulty}</p>
+              <p>Train with <span className="font-semibold">{workout.coach}</span></p>
             </div>
           </div>
 
           <p className="workout-description">
-            Dancers don't play! Challenge yourself with a full body sweat sesh like you've never experienced. Sculpt the body and train the mind in this ballet-HIIT workout.
+            {workout.description}
           </p>
 
-          <p className="calories">Estimated <span>282 kcal</span></p>
+          <p className="calories">Estimated <span>{workout.calories} kcal</span></p>
 
           {/* Timeline Section */}
           <div className="timeline-card">
             <div className="timeline-header">
                 <h2>Workout Details</h2>
-                <span>7 workouts | 29 mins</span>
+                <span>{workout.exercises.length} exercises | {workout.duration} mins</span>
             </div>
             <div className="timeline">
-                {workoutItems.map((item, index) => (
+                {workout.exercises.map((exercise, index) => (
                 <div className="timeline-item" key={index}>
                     <div className="timeline-dot"></div>
                     <div>
-                    <div className="timeline-title">{item.title}</div>
-                    <div className="timeline-duration">{item.duration}</div>
+                    <div className="timeline-title">{exercise.name}</div>
+                    <div className="timeline-duration">{exercise.sets} sets x {exercise.reps} reps</div>
                     </div>
                 </div>
                 ))}
@@ -122,7 +153,7 @@ export default function WorkoutDetails() {
           {/* <button className="start2-button" >
             START WORKOUT
           </button> */}
-          <button  className="start2-button">
+          <button className="start2-button">
             Start Workout
           </button>
         </div>

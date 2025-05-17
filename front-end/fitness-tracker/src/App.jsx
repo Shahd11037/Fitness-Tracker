@@ -6,13 +6,13 @@ import Signup from './components/Signup';
 import Dashboard from './components/Dashboard';
 import Home from './components/Home';
 import './App.css'; // Import the main CSS file
-import WorkoutHistory from './components/workoutHistory';
 import WorkoutDetails from './components/workoutDetails';
 import WorkoutPage  from './components/workouts';
 import CreateWorkoutPage from './components/createWorkout';
 import { ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import { ProtectedRoute, PublicRoute } from './components/ProtectedRoute';
+import WorkoutHistory from './components/workoutHistory';
 
 // Main App component that handles routing and theme
 function App() {
@@ -69,7 +69,7 @@ function App() {
             <Route path="/dashboard" element={<Dashboard darkMode={isDarkMode} toggleDarkMode={toggleDarkMode} />} />
             <Route path="/workouts" element={<WorkoutPage />} />
             <Route path="/history" element={<WorkoutHistory />} />
-            <Route path="/workoutDetails" element={<WorkoutDetails />} />
+            <Route path="/workoutDetails/:id" element={<WorkoutDetails />} />
             <Route path="/create" element={<CreateWorkoutPage />} />
           </Route>
           
