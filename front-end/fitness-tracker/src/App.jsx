@@ -69,7 +69,7 @@ function App() {
             <Route path="/dashboard" element={<Dashboard darkMode={isDarkMode} toggleDarkMode={toggleDarkMode} />} />
             <Route path="/workouts" element={<WorkoutPage />} />
             <Route path="/history" element={<WorkoutHistory />} />
-            <Route path="/workoutDetails/:id" element={<WorkoutDetails />} />
+            <Route path="/workouts/details/:id" element={<WorkoutDetails />} />
             <Route path="/create" element={<CreateWorkoutPage />} />
           </Route>
           

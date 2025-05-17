@@ -6,7 +6,7 @@ const WorkoutCard = ({ workout, onDelete }) => {
     <div className="workout-card">
       <img src={workout.image} alt="Workout Preview" className="workoutImage" />
       <div className="workout-overlay">
-        <Link to={`/workoutDetails/${workout.id}`} className="explore-button">Explore</Link>
+        <Link to={`/workouts/details/${workout.id}`} className="explore-button">Explore</Link>
         <h3>{workout.title}</h3>
         <p className="descrip">{workout.description}</p>
         <p className="details">{workout.details}</p>

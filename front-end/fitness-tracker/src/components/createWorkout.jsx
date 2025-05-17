@@ -14,6 +14,13 @@ const CreateWorkoutPage = () => {
     category: '',
   });
   
+  const [exercise, setExercise] = useState({
+    name: '',
+    sets: 3,
+    reps: 10,
+    weight: 135
+  });
+  
   const [imagePreview, setImagePreview] = useState(null);
   const [image, setImage] = useState(null);
   const [isSubmitting, setIsSubmitting] = useState(false);
@@ -23,6 +30,11 @@ const CreateWorkoutPage = () => {
   const handleChange = (e) => {
     const { name, value } = e.target;
     setWorkout({ ...workout, [name]: value });
+  };
+
+  const handleExerciseChange = (e) => {
+    const { name, value } = e.target;
+    setExercise({ ...exercise, [name]: name === 'name' ? value : Number(value) });
   };
 
   const handleImageChange = (e) => {
@@ -41,23 +53,71 @@ const CreateWorkoutPage = () => {
     fileInputRef.current.click();
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
     setIsSubmitting(true);
 
-    // Convert image to base64 for storage
-    const reader = new FileReader();
-    
-    const saveWorkout = (imageData) => {
-      const history = JSON.parse(localStorage.getItem('historyWorkouts')) || [];
-      const newWorkout = { 
-        ...workout, 
-        id: Date.now(),
-        image: imageData || null,
-        createdAt: new Date().toISOString()
+    try {
+      // Verify token exists
+      const token = localStorage.getItem('token');
+      if (!token) {
+        toast.error('You must be logged in to create a workout. Redirecting to login...', {
+          position: "top-right",
+          autoClose: 3000,
+        });
+        setTimeout(() => navigate('/login'), 2000);
+        setIsSubmitting(false);
+        return;
+      }
+
+      // Prepare the workout data for the API
+      const workoutData = {
+        type: workout.category,
+        exercises: [
+          {
+            name: exercise.name || workout.title,
+            sets: exercise.sets,
+            reps: exercise.reps,
+            weight: exercise.weight
+          }
+        ]
       };
-      
-      localStorage.setItem('historyWorkouts', JSON.stringify([...history, newWorkout]));
+
+      console.log('Sending workout data:', workoutData);
+      console.log('Using token:', token ? 'Token exists' : 'No token found');
+
+      // Make the API call
+      const response = await fetch('http://localhost:5000/api/workouts', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          'Authorization': `Bearer ${token}`
+        },
+        body: JSON.stringify(workoutData)
+      });
+
+      if (!response.ok) {
+        // Handle 401 Unauthorized specifically
+        if (response.status === 401) {
+          toast.error('Your session has expired. Please log in again.', {
+            position: "top-right",
+            autoClose: 3000,
+          });
+          localStorage.removeItem('token'); // Clear invalid token
+          setTimeout(() => navigate('/login'), 2000);
+          setIsSubmitting(false);
+          return;
+        }
+
+        const errorData = await response.json().catch(() => null);
+        console.error('API error response:', errorData);
+        throw new Error(`Failed to create workout: ${response.status} ${response.statusText}`);
+      }
+
+      const data = await response.json();
+      console.log('Workout created:', data);
+
+      saveToLocalStorage(data._id);
 
       toast.success('Workout created successfully!', {
         position: "top-right",
@@ -72,6 +132,28 @@ const CreateWorkoutPage = () => {
         setIsSubmitting(false);
         navigate('/history');
       }, 1500);
+    } catch (error) {
+      console.error('Error creating workout:', error);
+      toast.error('Failed to create workout. Please try again.', {
+        position: "top-right",
+        autoClose: 3000,
+      });
+      setIsSubmitting(false);
+    }
+  };
+  const saveToLocalStorage = (apiId) => {
+    const reader = new FileReader();
+    
+    const saveWorkout = (imageData) => {
+      const history = JSON.parse(localStorage.getItem('historyWorkouts')) || [];
+      const newWorkout = { 
+        ...workout, 
+        id: apiId || Date.now(),
+        image: imageData || null,
+        createdAt: new Date().toISOString()
+      };
+      
+      localStorage.setItem('historyWorkouts', JSON.stringify([...history, newWorkout]));
     };
 
     if (image) {
@@ -84,7 +166,6 @@ const CreateWorkoutPage = () => {
 
   const getCategoryIcon = (category) => {
     switch(category) {
-      case 'yoga': return <GrYoga />;
       case 'cardio': return <FaRunning />;
       case 'strength': return <FaDumbbell />;
       default: return null;
@@ -131,6 +212,72 @@ const CreateWorkoutPage = () => {
               />
             </div>
             
+            <div className={styles.formGroup}>
+              <label className={styles.formLabel}>Exercise Details</label>
+              <div className={styles.exerciseFields}>
+                <div className={styles.exerciseField}>
+                  <label htmlFor="exerciseName" className={styles.formLabel}>Exercise Name</label>
+                  <input 
+                    id="exerciseName"
+                    name="name" 
+                    type="text"
+                    placeholder="e.g. Bench Press" 
+                    value={exercise.name} 
+                    onChange={handleExerciseChange} 
+                    className={styles.formInput} 
+                    required 
+                  />
+                </div>
+                
+                <div className={styles.exerciseRow}>
+                  <div className={styles.exerciseField}>
+                    <label htmlFor="sets" className={styles.formLabel}>Sets</label>
+                    <input 
+                      id="sets"
+                      name="sets" 
+                      type="number"
+                      min="1"
+                      max="20"
+                      value={exercise.sets} 
+                      onChange={handleExerciseChange} 
+                      className={styles.formInput} 
+                      required 
+                    />
+                  </div>
+                  
+                  <div className={styles.exerciseField}>
+                    <label htmlFor="reps" className={styles.formLabel}>Reps</label>
+                    <input 
+                      id="reps"
+                      name="reps" 
+                      type="number"
+                      min="1"
+                      max="100"
+                      value={exercise.reps} 
+                      onChange={handleExerciseChange} 
+                      className={styles.formInput} 
+                      required 
+                    />
+                  </div>
+                  
+                  <div className={styles.exerciseField}>
+                    <label htmlFor="weight" className={styles.formLabel}>Weight (lbs)</label>
+                    <input 
+                      id="weight"
+                      name="weight" 
+                      type="number"
+                      min="0"
+                      max="1000"
+                      value={exercise.weight} 
+                      onChange={handleExerciseChange} 
+                      className={styles.formInput} 
+                      required 
+                    />
+                  </div>
+                </div>
+              </div>
+            </div>
+            
             <div className={styles.formRow}>
               <div className={styles.formGroup}>
                 <label htmlFor="details" className={styles.formLabel}>Workout Details</label>
@@ -163,7 +310,6 @@ const CreateWorkoutPage = () => {
                     required
                   >
                     <option value="">Select Category</option>
-                    <option value="yoga">Yoga</option>
                     <option value="cardio">Cardio</option>
                     <option value="strength">Strength Training</option>
                   </select>
